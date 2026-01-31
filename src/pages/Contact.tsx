@@ -1,19 +1,31 @@
-import { useState } from 'react';
-import Layout from '@/components/layout/Layout';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { Mail, Phone, MapPin, Send, Clock, Users } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { z } from 'zod';
+import { useState } from "react";
+import Layout from "@/components/layout/Layout";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { Mail, Phone, MapPin, Send, Clock, Users } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { z } from "zod";
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, 'Le nom est requis').max(100, 'Le nom est trop long'),
-  email: z.string().trim().email('Email invalide').max(255, 'Email trop long'),
-  subject: z.string().trim().min(1, 'Le sujet est requis').max(200, 'Le sujet est trop long'),
-  message: z.string().trim().min(10, 'Le message doit contenir au moins 10 caractères').max(2000, 'Le message est trop long'),
+  name: z
+    .string()
+    .trim()
+    .min(1, "Le nom est requis")
+    .max(100, "Le nom est trop long"),
+  email: z.string().trim().email("Email invalide").max(255, "Email trop long"),
+  subject: z
+    .string()
+    .trim()
+    .min(1, "Le sujet est requis")
+    .max(200, "Le sujet est trop long"),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Le message doit contenir au moins 10 caractères")
+    .max(2000, "Le message est trop long"),
 });
 
 const Contact = () => {
@@ -21,18 +33,20 @@ const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
@@ -58,34 +72,34 @@ const Contact = () => {
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     toast({
-      title: 'Message envoyé !',
-      description: 'Nous vous répondrons dans les plus brefs délais.',
+      title: "Message envoyé !",
+      description: "Nous vous répondrons dans les plus brefs délais.",
     });
 
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setFormData({ name: "", email: "", subject: "", message: "" });
     setIsSubmitting(false);
   };
 
   const contactInfo = [
     {
       icon: MapPin,
-      title: 'Adresse',
-      content: '74 Rue du Lazaret\n67100 Strasbourg, France',
+      title: "Adresse",
+      content: "74 Rue du Lazaret\n67100 Strasbourg, France",
     },
     {
       icon: Phone,
-      title: 'Téléphone',
-      content: '+33 (0)0 00 00 00 00',
+      title: "Téléphone",
+      content: "+33 (0)0 00 00 00 00",
     },
     {
       icon: Mail,
-      title: 'Email',
-      content: 'contact@renaitredenouveau.org',
+      title: "Email",
+      content: "contact@renaitredenouveau.org",
     },
     {
       icon: Clock,
-      title: 'Horaires',
-      content: 'Lun - Ven : 9h - 18h',
+      title: "Horaires",
+      content: "Lun - Ven : 9h - 18h",
     },
   ];
 
@@ -101,20 +115,22 @@ const Contact = () => {
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
-          <div className={cn(
-            "max-w-3xl transition-all duration-700",
-            heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          )}>
+          <div
+            className={cn(
+              "max-w-3xl transition-all duration-700",
+              heroVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10",
+            )}
+          >
             <span className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Mail className="w-4 h-4" />
               Contactez-nous
             </span>
-            <h1 className="text-white mb-6">
-              Restons en contact
-            </h1>
+            <h1 className="text-white mb-6">Restons en contact</h1>
             <p className="text-xl text-white/80 leading-relaxed">
-              N'hésitez pas à nous contacter pour toute question, suggestion ou collaboration.
-              Notre équipe est là pour vous aider.
+              N'hésitez pas à nous contacter pour toute question, suggestion ou
+              collaboration. Notre équipe est là pour vous aider.
             </p>
           </div>
         </div>
@@ -127,11 +143,16 @@ const Contact = () => {
             {/* Contact Form */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-2xl p-8 shadow-soft">
-                <h2 className="text-2xl font-bold mb-6">Envoyez-nous un message</h2>
+                <h2 className="text-2xl font-bold mb-6">
+                  Envoyez-nous un message
+                </h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium mb-2"
+                      >
                         Nom complet *
                       </label>
                       <Input
@@ -141,16 +162,22 @@ const Contact = () => {
                         onChange={handleChange}
                         placeholder="Votre nom"
                         className={cn(
-                          'input-modern',
-                          errors.name && 'border-destructive focus:ring-destructive'
+                          "input-modern",
+                          errors.name &&
+                            "border-destructive focus:ring-destructive",
                         )}
                       />
                       {errors.name && (
-                        <p className="text-destructive text-sm mt-1">{errors.name}</p>
+                        <p className="text-destructive text-sm mt-1">
+                          {errors.name}
+                        </p>
                       )}
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium mb-2"
+                      >
                         Email *
                       </label>
                       <Input
@@ -161,18 +188,24 @@ const Contact = () => {
                         onChange={handleChange}
                         placeholder="votre@email.com"
                         className={cn(
-                          'input-modern',
-                          errors.email && 'border-destructive focus:ring-destructive'
+                          "input-modern",
+                          errors.email &&
+                            "border-destructive focus:ring-destructive",
                         )}
                       />
                       {errors.email && (
-                        <p className="text-destructive text-sm mt-1">{errors.email}</p>
+                        <p className="text-destructive text-sm mt-1">
+                          {errors.email}
+                        </p>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium mb-2"
+                    >
                       Sujet *
                     </label>
                     <Input
@@ -182,17 +215,23 @@ const Contact = () => {
                       onChange={handleChange}
                       placeholder="Sujet de votre message"
                       className={cn(
-                        'input-modern',
-                        errors.subject && 'border-destructive focus:ring-destructive'
+                        "input-modern",
+                        errors.subject &&
+                          "border-destructive focus:ring-destructive",
                       )}
                     />
                     {errors.subject && (
-                      <p className="text-destructive text-sm mt-1">{errors.subject}</p>
+                      <p className="text-destructive text-sm mt-1">
+                        {errors.subject}
+                      </p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium mb-2"
+                    >
                       Message *
                     </label>
                     <Textarea
@@ -203,12 +242,15 @@ const Contact = () => {
                       placeholder="Votre message..."
                       rows={6}
                       className={cn(
-                        'input-modern resize-none',
-                        errors.message && 'border-destructive focus:ring-destructive'
+                        "input-modern resize-none",
+                        errors.message &&
+                          "border-destructive focus:ring-destructive",
                       )}
                     />
                     {errors.message && (
-                      <p className="text-destructive text-sm mt-1">{errors.message}</p>
+                      <p className="text-destructive text-sm mt-1">
+                        {errors.message}
+                      </p>
                     )}
                   </div>
 
@@ -258,12 +300,18 @@ const Contact = () => {
               <div className="bg-cobalt rounded-2xl p-6 text-white">
                 <div className="flex items-center gap-3 mb-4">
                   <Users className="w-8 h-8" />
-                  <h3 className="font-bold text-lg">Devenir Bénévole</h3>
+                  <h3 className="font-bold text-lg text-primary-foreground">
+                    Devenir Bénévole
+                  </h3>
                 </div>
                 <p className="text-white/80 mb-4 text-sm">
-                  Rejoignez notre équipe de bénévoles et participez activement à notre mission.
+                  Rejoignez notre équipe de bénévoles et participez activement à
+                  notre mission.
                 </p>
-                <a href="/volunteer" className="btn-white text-sm w-full justify-center">
+                <a
+                  href="/volunteer"
+                  className="btn-white text-sm w-full justify-center"
+                >
                   En savoir plus
                 </a>
               </div>

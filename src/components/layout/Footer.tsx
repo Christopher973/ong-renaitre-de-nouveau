@@ -1,31 +1,53 @@
-import { Link } from 'react-router-dom';
-import { Heart, Mail, MapPin, Phone, Facebook, Instagram, Youtube, Linkedin, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Link } from "react-router-dom";
+import {
+  Heart,
+  Mail,
+  MapPin,
+  Phone,
+  Facebook,
+  Instagram,
+  Youtube,
+  Linkedin,
+  ArrowRight,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { name: 'Accueil', path: '/' },
-    { name: 'Qui sommes-nous', path: '/about' },
-    { name: 'Nos Actions', path: '/actions' },
-    { name: 'Notre Équipe', path: '/team' },
-    { name: 'Contact', path: '/contact' },
+    { name: "Accueil", path: "/" },
+    { name: "Qui sommes-nous", path: "/about" },
+    { name: "Nos Actions", path: "/actions" },
+    { name: "Notre Équipe", path: "/team" },
+    { name: "Contact", path: "/contact" },
   ];
 
   const actionLinks = [
-    { name: 'Éducation', path: '/actions#education' },
-    { name: 'Formation', path: '/actions#formation' },
-    { name: 'Santé', path: '/actions#sante' },
-    { name: 'Sécurité alimentaire', path: '/actions#securite' },
-    { name: 'Volontariat', path: '/actions#volontariat' },
+    { name: "Éducation", path: "/actions#education" },
+    { name: "Formation", path: "/actions#formation" },
+    { name: "Santé", path: "/actions#sante" },
+    { name: "Sécurité alimentaire", path: "/actions#securite" },
+    { name: "Volontariat", path: "/actions#volontariat" },
   ];
 
   const engagementOptions = [
-    { name: 'Devenir Partenaire', description: 'Associez votre marque à une cause noble' },
-    { name: 'Devenir Parrain', description: 'Soutenez un enfant dans la durée' },
-    { name: 'Devenir Adhérent', description: 'Contribuez aux initiatives locales' },
-    { name: 'Devenir Bénévole', description: 'Participez activement à notre mission' },
+    {
+      name: "Devenir Partenaire",
+      description: "Associez votre marque à une cause noble",
+    },
+    {
+      name: "Devenir Parrain",
+      description: "Soutenez un enfant dans la durée",
+    },
+    {
+      name: "Devenir Adhérent",
+      description: "Contribuez aux initiatives locales",
+    },
+    {
+      name: "Devenir Bénévole",
+      description: "Participez activement à notre mission",
+    },
   ];
 
   return (
@@ -38,7 +60,8 @@ const Footer = () => {
               Agir avec nous
             </h2>
             <p className="text-white/80 max-w-2xl mx-auto">
-              Plusieurs façons de soutenir notre mission et de faire une différence
+              Plusieurs façons de soutenir notre mission et de faire une
+              différence
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -71,30 +94,35 @@ const Footer = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* About Column */}
             <div className="lg:col-span-1">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-cobalt rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">R</span>
-                </div>
-                <div>
-                  <span className="font-bold text-lg">Renaître</span>
-                  <span className="block text-sm text-white/60">de Nouveau</span>
-                </div>
-              </div>
+              <img
+                src="/src/assets/logo.png"
+                alt="Logo Renaître de Nouveau"
+                className="h-20"
+              />
               <p className="text-white/70 mb-6 leading-relaxed">
-                Voir l'espoir renaître sur le visage de ceux et celles qui pensent que tout est fini pour eux.
+                Voir l'espoir renaître sur le visage de ceux et celles qui
+                pensent que tout est fini pour eux.
               </p>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-cobalt transition-colors">
+                <a
+                  href="https://www.facebook.com/profile.php?id=100072441042941"
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-cobalt transition-colors"
+                >
                   <Facebook className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-cobalt transition-colors">
+                <a
+                  href="https://www.instagram.com/renaitredenouveau_/"
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-cobalt transition-colors"
+                >
                   <Instagram className="w-5 h-5" />
                 </a>
-                <a href="https://www.youtube.com/watch?v=Ld3j1YLSOVc" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-cobalt transition-colors">
+                <a
+                  href="https://www.youtube.com/watch?v=Ld3j1YLSOVc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-cobalt transition-colors"
+                >
                   <Youtube className="w-5 h-5" />
-                </a>
-                <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-cobalt transition-colors">
-                  <Linkedin className="w-5 h-5" />
                 </a>
               </div>
             </div>
@@ -140,24 +168,32 @@ const Footer = () => {
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-cobalt-light flex-shrink-0 mt-0.5" />
                   <span className="text-white/70">
-                    74 Rue du Lazaret<br />67100 Strasbourg, France
+                    74 Rue du Lazaret
+                    <br />
+                    67100 Strasbourg, France
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-cobalt-light flex-shrink-0" />
-                  <a href="tel:+33000000000" className="text-white/70 hover:text-cobalt-light transition-colors">
-                    +33 (0)0 00 00 00 00
+                  <a
+                    href="tel:+33755181950"
+                    className="text-white/70 hover:text-cobalt-light transition-colors"
+                  >
+                    +33 7 55 18 19 50
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-cobalt-light flex-shrink-0" />
-                  <a href="mailto:contact@renaitredenouveau.org" className="text-white/70 hover:text-cobalt-light transition-colors">
+                  <a
+                    href="mailto:contact@renaitredenouveau.org"
+                    className="text-white/70 hover:text-cobalt-light transition-colors"
+                  >
                     contact@renaitredenouveau.org
                   </a>
                 </li>
               </ul>
               <div className="mt-6">
-                <Link to="/donate">
+                <Link to="https://www.helloasso.com/associations/ong-renaitre-de-nouveau">
                   <Button className="btn-primary w-full">
                     <Heart className="w-4 h-4 mr-2" />
                     Faire un Don
@@ -174,19 +210,29 @@ const Footer = () => {
         <div className="container-custom">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/50">
             <p>
-              © {currentYear} Renaître de Nouveau. Créé avec <Heart className="w-4 h-4 inline text-cobalt-light" /> par Christopher Marie-Angélique
+              © {currentYear} Renaître de Nouveau. Créé avec{" "}
+              <Heart className="w-4 h-4 inline text-cobalt-light" /> par
+              Christopher Marie-Angélique
             </p>
             <div className="flex gap-6">
-              <Link to="/mentions-legales" className="hover:text-white transition-colors">
+              <Link
+                to="/mentions-legales"
+                className="hover:text-white transition-colors"
+              >
                 Mentions légales
               </Link>
-              <Link to="/confidentialite" className="hover:text-white transition-colors">
+              <Link
+                to="/confidentialite"
+                className="hover:text-white transition-colors"
+              >
                 Confidentialité
               </Link>
             </div>
           </div>
           <p className="text-center text-xs text-white/30 mt-4">
-            Association régie par les articles 21 à 79 III du Code civil local maintenu en vigueur dans les départements du Haut-Rhin, du Bas-Rhin et de la Moselle.
+            Association régie par les articles 21 à 79 III du Code civil local
+            maintenu en vigueur dans les départements du Haut-Rhin, du Bas-Rhin
+            et de la Moselle.
           </p>
         </div>
       </div>

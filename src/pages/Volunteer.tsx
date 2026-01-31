@@ -1,10 +1,17 @@
-import { Link } from 'react-router-dom';
-import Layout from '@/components/layout/Layout';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Button } from '@/components/ui/button';
-import { Heart, ArrowRight, Globe, HandHeart, Users, Calendar } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import volunteersImg from '@/assets/volunteers.jpg';
+import { Link } from "react-router-dom";
+import Layout from "@/components/layout/Layout";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { Button } from "@/components/ui/button";
+import {
+  Heart,
+  ArrowRight,
+  Globe,
+  HandHeart,
+  Users,
+  Calendar,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import volunteersImg from "@/assets/volunteers.jpg";
 
 const Volunteer = () => {
   const [heroRef, heroVisible] = useScrollAnimation<HTMLElement>();
@@ -13,33 +20,37 @@ const Volunteer = () => {
   const reasons = [
     {
       icon: Heart,
-      title: 'Donner un sens à sa vie',
-      description: 'Contribuer positivement à la société et ressentir un sentiment de satisfaction.',
+      title: "Donner un sens à sa vie",
+      description:
+        "Contribuer positivement à la société et ressentir un sentiment de satisfaction.",
     },
     {
       icon: Globe,
-      title: 'Découvrir de nouvelles cultures',
-      description: 'Vivre une expérience enrichissante à l\'international, au Bénin ou en France.',
+      title: "Découvrir de nouvelles cultures",
+      description:
+        "Vivre une expérience enrichissante à l'international, au Bénin ou en France.",
     },
     {
       icon: HandHeart,
-      title: 'Développer des compétences',
-      description: 'Acquérir de nouvelles compétences professionnelles et personnelles.',
+      title: "Développer des compétences",
+      description:
+        "Acquérir de nouvelles compétences professionnelles et personnelles.",
     },
     {
       icon: Users,
-      title: 'Faire des rencontres',
-      description: 'Tisser des liens forts avec d\'autres bénévoles et les communautés locales.',
+      title: "Faire des rencontres",
+      description:
+        "Tisser des liens forts avec d'autres bénévoles et les communautés locales.",
     },
   ];
 
   const missions = [
-    'Éducation et soutien scolaire',
-    'Santé et prévention',
-    'Aide humanitaire',
-    'Agriculture et environnement',
-    'Action sociale',
-    'Communication',
+    "Éducation et soutien scolaire",
+    "Santé et prévention",
+    "Aide humanitaire",
+    "Agriculture et environnement",
+    "Action sociale",
+    "Communication",
   ];
 
   return (
@@ -58,20 +69,23 @@ const Volunteer = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-storm/90 via-storm/70 to-transparent" />
         </div>
         <div className="container-custom relative z-10 py-32">
-          <div className={cn(
-            "max-w-2xl transition-all duration-700",
-            heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          )}>
+          <div
+            className={cn(
+              "max-w-2xl transition-all duration-700",
+              heroVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10",
+            )}
+          >
             <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm font-medium mb-6">
               <HandHeart className="w-4 h-4" />
               Rejoignez-nous
             </span>
-            <h1 className="text-white mb-6">
-              Devenez Bénévole
-            </h1>
+            <h1 className="text-white mb-6">Devenez Bénévole</h1>
             <p className="text-xl text-white/80 leading-relaxed mb-8">
-              Le volontariat est fait pour tous les bénévoles avec ou sans expérience.
-              Mettez vos compétences au service d'une cause noble et vivez une expérience unique.
+              Le volontariat est fait pour tous les bénévoles avec ou sans
+              expérience. Mettez vos compétences au service d'une cause noble et
+              vivez une expérience unique.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/contact">
@@ -81,7 +95,7 @@ const Volunteer = () => {
                 </Button>
               </Link>
               <Link to="/actions#volontariat">
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-storm rounded-full px-8">
+                <Button size="lg" className="btn-primary text-lg px-8">
                   En savoir plus
                 </Button>
               </Link>
@@ -91,23 +105,25 @@ const Volunteer = () => {
       </section>
 
       {/* Why Volunteer */}
-      <section
-        ref={whyRef}
-        className="section-padding bg-warm-white"
-      >
+      <section ref={whyRef} className="section-padding bg-warm-white">
         <div className="container-custom">
-          <div className={cn(
-            "text-center max-w-3xl mx-auto mb-16 transition-all duration-700",
-            whyVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          )}>
+          <div
+            className={cn(
+              "text-center max-w-3xl mx-auto mb-16 transition-all duration-700",
+              whyVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10",
+            )}
+          >
             <span className="badge-primary mb-4">Pourquoi s'engager ?</span>
             <h2 className="mb-6">
-              Le volontariat, une expérience{' '}
+              Le volontariat, une expérience{" "}
               <span className="text-cobalt">enrichissante</span>
             </h2>
             <p className="text-muted-foreground text-lg">
-              Le volontariat offre des avantages variés, allant de l'acquisition de compétences 
-              professionnelles à l'amélioration du bien-être personnel.
+              Le volontariat offre des avantages variés, allant de l'acquisition
+              de compétences professionnelles à l'amélioration du bien-être
+              personnel.
             </p>
           </div>
 
@@ -117,7 +133,9 @@ const Volunteer = () => {
                 key={reason.title}
                 className={cn(
                   "bg-white rounded-2xl p-6 shadow-soft hover:shadow-lg transition-all duration-300 hover:-translate-y-1",
-                  whyVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                  whyVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-10",
                 )}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
@@ -125,7 +143,9 @@ const Volunteer = () => {
                   <reason.icon className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{reason.title}</h3>
-                <p className="text-muted-foreground text-sm">{reason.description}</p>
+                <p className="text-muted-foreground text-sm">
+                  {reason.description}
+                </p>
               </div>
             ))}
           </div>
@@ -140,8 +160,9 @@ const Volunteer = () => {
               <span className="badge-primary mb-4">Types de missions</span>
               <h2 className="mb-6">Trouvez votre mission</h2>
               <p className="text-muted-foreground text-lg mb-8">
-                Quel que soit votre profil – étudiants, jeunes, professionnels ou retraités – 
-                vous pourrez trouver une mission humanitaire qui vous donnera l'envie de vous engager.
+                Quel que soit votre profil – étudiants, jeunes, professionnels
+                ou retraités – vous pourrez trouver une mission humanitaire qui
+                vous donnera l'envie de vous engager.
               </p>
 
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
@@ -159,22 +180,26 @@ const Volunteer = () => {
               </div>
 
               <p className="text-muted-foreground text-sm">
-                <strong>Condition :</strong> être majeur. Pas de condition de nationalité, ni de limite d'âge.
+                <strong>Condition :</strong> être majeur. Pas de condition de
+                nationalité, ni de limite d'âge.
               </p>
             </div>
 
             <div className="bg-cobalt rounded-3xl p-8 md:p-12 text-white">
-              <h3 className="text-2xl font-bold mb-6">Prêt à vous engager ?</h3>
+              <h3 className="text-2xl font-bold mb-6 text-primary-foreground  ">
+                Prêt à vous engager ?
+              </h3>
               <p className="text-white/80 mb-8">
-                Contactez-nous pour discuter de votre projet de volontariat. Nous trouverons 
-                ensemble la mission qui correspond le mieux à vos compétences et à vos envies.
+                Contactez-nous pour discuter de votre projet de volontariat.
+                Nous trouverons ensemble la mission qui correspond le mieux à
+                vos compétences et à vos envies.
               </p>
               <ul className="space-y-4 mb-8">
                 {[
-                  'Accompagnement personnalisé',
-                  'Formation avant départ',
-                  'Suivi pendant la mission',
-                  'Certificat de bénévolat',
+                  "Accompagnement personnalisé",
+                  "Formation avant départ",
+                  "Suivi pendant la mission",
+                  "Certificat de bénévolat",
                 ].map((item, index) => (
                   <li key={index} className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-white rounded-full" />
@@ -183,7 +208,10 @@ const Volunteer = () => {
                 ))}
               </ul>
               <Link to="/contact">
-                <Button size="lg" className="bg-white text-cobalt hover:bg-white/90 rounded-full w-full">
+                <Button
+                  size="lg"
+                  className="bg-white text-cobalt hover:bg-white/90 rounded-full w-full"
+                >
                   Nous contacter
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>

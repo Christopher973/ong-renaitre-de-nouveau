@@ -1,56 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Renaître de Nouveau - Design System
-   Colors: Cobalt Pulsar #0062FC, Orage Silencieux #2B2B2B
-   All colors in HSL format
+  Colors: Cobalt Pulsar #0062FC, Orage Silencieux #2B2B2B
+  All colors in HSL format
 */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @layer base {
   :root {
     /* Primary - Cobalt Pulsar Blue */
     --primary: 216 100% 49%;
     --primary-foreground: 0 0% 100%;
-    
+
     /* Secondary - Light blue tint */
     --secondary: 216 100% 96%;
     --secondary-foreground: 216 100% 30%;
-    
+
     /* Background & Foreground */
     --background: 0 0% 100%;
     --foreground: 0 0% 17%;
-    
+
     /* Card */
     --card: 0 0% 100%;
     --card-foreground: 0 0% 17%;
-    
+
     /* Popover */
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 17%;
-    
+
     /* Muted - Soft grey */
     --muted: 220 14% 96%;
     --muted-foreground: 220 9% 46%;
-    
+
     /* Accent - Light cobalt */
     --accent: 216 100% 96%;
     --accent-foreground: 216 100% 35%;
-    
+
     /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    
+
     /* Border & Input */
     --border: 220 13% 91%;
     --input: 220 13% 91%;
     --ring: 216 100% 49%;
-    
+
     /* Radius */
     --radius: 0.75rem;
-    
+
     /* Custom colors for the charity theme */
     --cobalt: 216 100% 49%;
     --cobalt-light: 216 100% 60%;
@@ -60,21 +60,41 @@
     --warm-white: 40 33% 98%;
     --success: 142 71% 45%;
     --hope: 45 100% 51%;
-    
+
     /* Gradients as CSS custom properties */
-    --gradient-hero: linear-gradient(135deg, hsl(216 100% 49%) 0%, hsl(216 100% 35%) 100%);
-    --gradient-hero-overlay: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 14% 98%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(216 100% 49%) 0%, hsl(216 100% 55%) 50%, hsl(216 100% 49%) 100%);
-    
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(216 100% 49%) 0%,
+      hsl(216 100% 35%) 100%
+    );
+    --gradient-hero-overlay: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+    --gradient-card: linear-gradient(
+      180deg,
+      hsl(0 0% 100%) 0%,
+      hsl(220 14% 98%) 100%
+    );
+    --gradient-cta: linear-gradient(
+      135deg,
+      hsl(216 100% 49%) 0%,
+      hsl(216 100% 55%) 50%,
+      hsl(216 100% 49%) 100%
+    );
+
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-md:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --shadow-cobalt: 0 10px 40px -10px hsla(216, 100%, 49%, 0.4);
     --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
-    
+
     /* Sidebar (keeping defaults) */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -89,32 +109,32 @@
   .dark {
     --primary: 216 100% 60%;
     --primary-foreground: 0 0% 100%;
-    
+
     --secondary: 216 30% 15%;
     --secondary-foreground: 216 100% 90%;
-    
+
     --background: 0 0% 7%;
     --foreground: 0 0% 95%;
-    
+
     --card: 0 0% 10%;
     --card-foreground: 0 0% 95%;
-    
+
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 95%;
-    
+
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
-    
+
     --accent: 216 50% 20%;
     --accent-foreground: 216 100% 90%;
-    
+
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
-    
+
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 216 100% 60%;
-    
+
     --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 216 100% 60%;
@@ -137,10 +157,15 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold tracking-tight text-storm;
   }
 
@@ -236,13 +261,13 @@
   /* Action Card with Icon */
   .action-card {
     @apply relative bg-white rounded-2xl p-8 shadow-sm border border-border
-           overflow-hidden group cursor-pointer
-           transition-all duration-500 ease-out
-           hover:shadow-xl hover:-translate-y-2 hover:border-cobalt/30;
+        overflow-hidden cursor-pointer
+        transition-all duration-500 ease-out
+        hover:shadow-xl hover:-translate-y-2 hover:border-cobalt/30;
   }
 
   .action-card::before {
-    content: '';
+    content: "";
     @apply absolute top-0 left-0 w-full h-1 bg-cobalt
            transform origin-left scale-x-0
            transition-transform duration-500 ease-out;
@@ -258,7 +283,7 @@
   }
 
   .link-underline::after {
-    content: '';
+    content: "";
     @apply absolute bottom-0 left-0 w-full h-0.5 bg-cobalt
            transform origin-right scale-x-0
            transition-transform duration-300 ease-out;
@@ -299,7 +324,7 @@
 
   .divider-text::before,
   .divider-text::after {
-    content: '';
+    content: "";
     @apply flex-1 h-px bg-border;
   }
 }
@@ -401,12 +426,24 @@
   }
 
   /* Stagger children animations */
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
-  .stagger-6 { animation-delay: 0.6s; }
+  .stagger-1 {
+    animation-delay: 0.1s;
+  }
+  .stagger-2 {
+    animation-delay: 0.2s;
+  }
+  .stagger-3 {
+    animation-delay: 0.3s;
+  }
+  .stagger-4 {
+    animation-delay: 0.4s;
+  }
+  .stagger-5 {
+    animation-delay: 0.5s;
+  }
+  .stagger-6 {
+    animation-delay: 0.6s;
+  }
 
   /* Initially hidden for animation */
   .opacity-0-initial {
@@ -480,7 +517,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -489,7 +527,8 @@
 }
 
 @keyframes pulse-slow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -501,7 +540,9 @@
 .scroll-animate {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .scroll-animate.is-visible {
@@ -512,7 +553,9 @@
 .scroll-animate-left {
   opacity: 0;
   transform: translateX(-50px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .scroll-animate-left.is-visible {
@@ -523,7 +566,9 @@
 .scroll-animate-right {
   opacity: 0;
   transform: translateX(50px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .scroll-animate-right.is-visible {
@@ -534,7 +579,9 @@
 .scroll-animate-scale {
   opacity: 0;
   transform: scale(0.9);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .scroll-animate-scale.is-visible {
