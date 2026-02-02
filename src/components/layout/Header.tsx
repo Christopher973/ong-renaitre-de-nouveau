@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Image } from "@radix-ui/react-avatar";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -70,11 +71,7 @@ const Header = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <img
-            src="/src/assets/logo.png"
-            alt="Logo Renaître de Nouveau"
-            className="h-20"
-          />
+          <img src={logo} alt="Logo Renaître de Nouveau" className="h-20" />
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:block">

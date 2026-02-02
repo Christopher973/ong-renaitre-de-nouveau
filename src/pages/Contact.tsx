@@ -89,7 +89,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Téléphone",
-      content: "+33 (0)0 00 00 00 00",
+      content: "+33 7 55 18 19 50",
     },
     {
       icon: Mail,

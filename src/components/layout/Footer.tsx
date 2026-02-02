@@ -11,6 +11,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -94,11 +95,7 @@ const Footer = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* About Column */}
             <div className="lg:col-span-1">
-              <img
-                src="/src/assets/logo.png"
-                alt="Logo Renaître de Nouveau"
-                className="h-20"
-              />
+              <img src={logo} alt="Logo Renaître de Nouveau" className="h-20" />
               <p className="text-white/70 mb-6 leading-relaxed">
                 Voir l'espoir renaître sur le visage de ceux et celles qui
                 pensent que tout est fini pour eux.
