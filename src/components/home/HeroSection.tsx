@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Heart, Users, ArrowDown, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-humanitarian.jpg";
-import { presencePhrase } from "@/config/presence";
+import { zonesApi } from "@/lib/api";
 
 const HeroSection = () => {
+  const [zoneCount, setZoneCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    zonesApi
+      .list()
+      .then((zones) => setZoneCount(zones.length))
+      .catch(() => setZoneCount(null));
+  }, []);
+
   const scrollToAbout = () => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -30,14 +40,6 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="container-custom relative z-10 text-center text-white pt-24 pb-16">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-8 animate-fade-in-down">
-          <span className="w-2 h-2 bg-cobalt-light rounded-full animate-pulse" />
-          <span className="text-sm font-medium">
-            Association humanitaire {presencePhrase()}
-          </span>
-        </div>
-
         {/* Main Title */}
         <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 max-w-5xl mx-auto animate-fade-in-up text-primary-foreground">
           Voir l'espoir <span className="text-cobalt-light">renaître</span> sur
@@ -87,7 +89,7 @@ const HeroSection = () => {
         >
           {[
             { value: "5000+", label: "Bénéficiaires" },
-            { value: "2", label: "Pays d'action" },
+            { value: zoneCount !== null ? String(zoneCount) : "…", label: "Pays d'action" },
             { value: "6", label: "Axes d'intervention" },
             { value: "50+", label: "Bénévoles actifs" },
           ].map((stat, index) => (

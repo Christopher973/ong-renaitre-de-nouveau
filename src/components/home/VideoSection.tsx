@@ -2,8 +2,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
-import { videosApi } from '@/lib/api';
-import { presencePhrase } from '@/config/presence';
+import { videosApi, zonesApi, Zone } from '@/lib/api';
 
 const extractYoutubeId = (url: string): string | null => {
   const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{6,})/);
@@ -17,6 +16,11 @@ const VideoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoId, setVideoId] = useState(DEFAULT_VIDEO_ID);
   const [videoDescription, setVideoDescription] = useState<string | null>(null);
+  const [zones, setZones] = useState<Zone[]>([]);
+
+  useEffect(() => {
+    zonesApi.list().then(setZones).catch(() => setZones([]));
+  }, []);
 
   useEffect(() => {
     videosApi
@@ -51,7 +55,7 @@ const VideoSection = () => {
               <span className="text-cobalt-light">impact durable</span>
             </h2>
             <p className="text-white/70 text-lg mb-8 leading-relaxed">
-              Découvrez comment Renaître de Nouveau transforme des vies {presencePhrase()}.
+              Découvrez comment Renaître de Nouveau transforme des vies {zones.map((z) => z.prepositional_phrase).join(' et ')}.
               Nos équipes sur le terrain travaillent chaque jour pour offrir un avenir meilleur
               aux orphelins, aux veuves et aux jeunes en difficulté.
             </p>

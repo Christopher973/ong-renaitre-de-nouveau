@@ -7,6 +7,7 @@ const newsRoutes = require("./routes/news");
 const videosRoutes = require("./routes/videos");
 const projectsRoutes = require("./routes/projects");
 const teamRoutes = require("./routes/team");
+const zonesRoutes = require("./routes/zones");
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.use("/api/news", newsRoutes);
 app.use("/api/videos", videosRoutes);
 app.use("/api/projects", projectsRoutes);
 app.use("/api/team", teamRoutes);
+app.use("/api/zones", zonesRoutes);
 
 module.exports = app;

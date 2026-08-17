@@ -59,3 +59,21 @@ export const teamApi = {
   update: (id: number, formData: FormData) => request(`/api/team/${id}`, { method: "PUT", body: formData, auth: true }),
   remove: (id: number) => request(`/api/team/${id}`, { method: "DELETE", auth: true }),
 };
+
+export type Zone = {
+  id: number;
+  country: string;
+  prepositional_phrase: string;
+  city: string | null;
+  address: string;
+  description: string | null;
+  map_url: string;
+  order_index: number;
+};
+
+export const zonesApi = {
+  list: (): Promise<Zone[]> => request("/api/zones"),
+  create: (data: Partial<Zone>) => request("/api/zones", { method: "POST", body: data, auth: true }),
+  update: (id: number, data: Partial<Zone>) => request(`/api/zones/${id}`, { method: "PUT", body: data, auth: true }),
+  remove: (id: number) => request(`/api/zones/${id}`, { method: "DELETE", auth: true }),
+};
