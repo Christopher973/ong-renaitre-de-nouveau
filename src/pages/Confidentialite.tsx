@@ -39,7 +39,7 @@ const Confidentialite = () => {
               d'identification pour son propre compte, en tant que responsable de traitement
               distinct. Nous vous invitons à consulter la{' '}
               <a
-                href="https://www.helloasso.com/politique-de-confidentialite"
+                href="https://info.helloasso.com/politique-de-confidentialite"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cobalt hover:underline"
