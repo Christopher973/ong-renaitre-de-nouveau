@@ -3,6 +3,7 @@ import { Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { videosApi } from '@/lib/api';
+import { presencePhrase } from '@/config/presence';
 
 const extractYoutubeId = (url: string): string | null => {
   const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{6,})/);
@@ -50,7 +51,7 @@ const VideoSection = () => {
               <span className="text-cobalt-light">impact durable</span>
             </h2>
             <p className="text-white/70 text-lg mb-8 leading-relaxed">
-              Découvrez comment Renaître de Nouveau transforme des vies au Bénin et en France.
+              Découvrez comment Renaître de Nouveau transforme des vies {presencePhrase()}.
               Nos équipes sur le terrain travaillent chaque jour pour offrir un avenir meilleur
               aux orphelins, aux veuves et aux jeunes en difficulté.
             </p>

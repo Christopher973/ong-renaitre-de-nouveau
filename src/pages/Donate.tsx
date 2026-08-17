@@ -9,6 +9,8 @@ import {
   ArrowRight,
   CheckCircle,
   Shield,
+  FileText,
+  Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -233,9 +235,15 @@ const Donate = () => {
             Association reconnue d'intérêt général
           </p>
           <div className="flex flex-wrap justify-center gap-8 text-white/40 text-sm">
-            <span>🔒 Paiements 100% sécurisés</span>
-            <span>📄 Reçu fiscal automatique</span>
-            <span>👁️ Transparence totale</span>
+            <span className="inline-flex items-center gap-2">
+              <Shield className="w-4 h-4" /> Paiements 100% sécurisés
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <FileText className="w-4 h-4" /> Reçu fiscal automatique
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <Eye className="w-4 h-4" /> Transparence totale
+            </span>
           </div>
         </div>
       </section>

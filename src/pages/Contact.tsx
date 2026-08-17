@@ -84,7 +84,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Adresse",
-      content: "74 Rue du Lazaret\n67100 Strasbourg, France",
+      content: "24 rue de la Niederbourg\n67400 Illkirch-Graffenstaden, France",
     },
     {
       icon: Phone,

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Button } from "@/components/ui/button";
+import { presenceZones } from "@/config/presence";
 import {
   Heart,
   ArrowRight,
@@ -28,7 +29,8 @@ const Volunteer = () => {
       icon: Globe,
       title: "Découvrir de nouvelles cultures",
       description:
-        "Vivre une expérience enrichissante à l'international, au Bénin ou en France.",
+        "Vivre une expérience enrichissante à l'international, " +
+          presenceZones.map((z) => z.country).join(' ou ') + '.',
     },
     {
       icon: HandHeart,

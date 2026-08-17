@@ -22,6 +22,7 @@ import healthImg from "@/assets/health-care.jpg";
 import foodImg from "@/assets/food-security.jpg";
 import volunteersImg from "@/assets/volunteers.jpg";
 import { projectsApi, imgUrl } from "@/lib/api";
+import { presenceZones } from "@/config/presence";
 
 const Actions = () => {
   const location = useLocation();
@@ -140,7 +141,10 @@ const Actions = () => {
       image: volunteersImg,
       points: [
         "Volontariat de solidarité internationale",
-        "Missions terrain au Bénin",
+        `Missions terrain ${presenceZones
+          .filter((z) => z.country !== 'France')
+          .map((z) => z.prepositionalPhrase)
+          .join(' et ')}`,
         "Mécénat d'entreprise",
         "Développement de compétences pratiques",
         "Contribution aux objectifs de développement durable",
