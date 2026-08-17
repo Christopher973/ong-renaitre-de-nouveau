@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Button } from "@/components/ui/button";
-import { presenceZones } from "@/config/presence";
+import { zonesApi, Zone } from "@/lib/api";
 import {
   Heart,
   ArrowRight,
@@ -17,6 +18,11 @@ import volunteersImg from "@/assets/volunteers.jpg";
 const Volunteer = () => {
   const [heroRef, heroVisible] = useScrollAnimation<HTMLElement>();
   const [whyRef, whyVisible] = useScrollAnimation<HTMLElement>();
+  const [zones, setZones] = useState<Zone[]>([]);
+
+  useEffect(() => {
+    zonesApi.list().then(setZones).catch(() => setZones([]));
+  }, []);
 
   const reasons = [
     {
@@ -30,7 +36,7 @@ const Volunteer = () => {
       title: "Découvrir de nouvelles cultures",
       description:
         "Vivre une expérience enrichissante à l'international, " +
-          presenceZones.map((z) => z.country).join(' ou ') + '.',
+          zones.map((z) => z.country).join(' ou ') + '.',
     },
     {
       icon: HandHeart,

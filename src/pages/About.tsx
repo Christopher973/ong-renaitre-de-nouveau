@@ -1,13 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Target, Eye, Heart, Users, Shield, BookOpen, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { presenceZones } from '@/config/presence';
+import { zonesApi, Zone } from '@/lib/api';
 
 const About = () => {
   const location = useLocation();
+  const [zones, setZones] = useState<Zone[]>([]);
+
+  useEffect(() => {
+    zonesApi
+      .list()
+      .then(setZones)
+      .catch(() => setZones([]));
+  }, []);
   const [heroRef, heroVisible] = useScrollAnimation<HTMLElement>();
   const [missionRef, missionVisible] = useScrollAnimation<HTMLElement>();
   const [charteRef, charteVisible] = useScrollAnimation<HTMLElement>();
@@ -54,20 +62,8 @@ const About = () => {
     'Défendons la veuve',
   ];
 
-  // Zones d'intervention : les données géographiques (pays, adresse, carte) viennent
-  // de src/config/presence.ts, source unique partagée avec la page d'accueil.
-  // Pour ajouter un nouveau pays, modifier uniquement ce fichier de config.
-  const zones = presenceZones.map((zone) => ({
-    ...zone,
-    title:
-      zone.country === 'France'
-        ? 'France - Strasbourg'
-        : `${zone.country} - Multi-départements`,
-    description:
-      zone.country === 'France'
-        ? 'Siège de l\'association et coordination des actions humanitaires en Europe.'
-        : `Actions terrain dans 6 départements pour soutenir les communautés locales.`,
-  }));
+  // Zones d'intervention : chargées depuis le tableau de bord admin (table `zones`).
+  // Ajouter/modifier un pays se fait désormais depuis /admin, sans toucher au code.
 
   return (
     <Layout>
@@ -239,25 +235,29 @@ const About = () => {
             <h2 className="mb-6">Zones d'intervention</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Renaître de Nouveau s'engage à transformer des vies en menant des actions
-              concrètes {zones.map((z) => z.prepositionalPhrase).join(' et ')}.
+              concrètes {zones.map((z) => z.prepositional_phrase).join(' et ')}.
             </p>
           </div>
 
           <div className={cn('grid gap-8', zones.length >= 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2')}>
             {zones.map((zone) => (
-              <div key={zone.country} className="bg-white rounded-2xl overflow-hidden shadow-soft">
+              <div key={zone.id} className="bg-white rounded-2xl overflow-hidden shadow-soft">
                 <div className="h-64 bg-muted">
                   <iframe
-                    src={zone.mapUrl}
+                    src={zone.map_url}
                     className="w-full h-full border-0"
                     loading="lazy"
                     title={`Carte ${zone.country}`}
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{zone.title}</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    {zone.country}{zone.city ? ` - ${zone.city}` : ''}
+                  </h3>
                   <p className="text-muted-foreground mb-2">{zone.address}</p>
-                  <p className="text-muted-foreground text-sm">{zone.description}</p>
+                  {zone.description && (
+                    <p className="text-muted-foreground text-sm">{zone.description}</p>
+                  )}
                 </div>
               </div>
             ))}

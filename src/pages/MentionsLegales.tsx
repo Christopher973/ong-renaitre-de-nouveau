@@ -1,9 +1,17 @@
+import { useEffect, useState } from 'react';
 import Layout from '@/components/layout/Layout';
-import { presenceZones } from '@/config/presence';
-
-const franceZone = presenceZones.find((z) => z.country === 'France');
+import { zonesApi, Zone } from '@/lib/api';
 
 const MentionsLegales = () => {
+  const [franceZone, setFranceZone] = useState<Zone | null>(null);
+
+  useEffect(() => {
+    zonesApi
+      .list()
+      .then((zones) => setFranceZone(zones.find((z) => z.country === 'France') || null))
+      .catch(() => setFranceZone(null));
+  }, []);
+
   return (
     <Layout>
       <section className="pt-32 pb-16 bg-gradient-to-br from-cobalt via-cobalt to-cobalt-dark text-white">

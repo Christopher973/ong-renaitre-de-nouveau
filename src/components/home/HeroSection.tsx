@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Heart, Users, ArrowDown, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-humanitarian.jpg";
-import { presenceZones } from "@/config/presence";
+import { zonesApi } from "@/lib/api";
 
 const HeroSection = () => {
+  const [zoneCount, setZoneCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    zonesApi
+      .list()
+      .then((zones) => setZoneCount(zones.length))
+      .catch(() => setZoneCount(null));
+  }, []);
+
   const scrollToAbout = () => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -79,7 +89,7 @@ const HeroSection = () => {
         >
           {[
             { value: "5000+", label: "Bénéficiaires" },
-            { value: String(presenceZones.length), label: "Pays d'action" },
+            { value: zoneCount !== null ? String(zoneCount) : "…", label: "Pays d'action" },
             { value: "6", label: "Axes d'intervention" },
             { value: "50+", label: "Bénévoles actifs" },
           ].map((stat, index) => (

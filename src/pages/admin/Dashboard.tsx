@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getToken, setToken, imgUrl, newsApi, videosApi, projectsApi, teamApi } from "@/lib/api";
+import { getToken, setToken, imgUrl, newsApi, videosApi, projectsApi, teamApi, zonesApi } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-type Tab = "news" | "videos" | "projects" | "team";
+type Tab = "news" | "videos" | "projects" | "team" | "zones";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function AdminDashboard() {
     if (!getToken()) navigate("/admin");
   }, [navigate]);
 
-  const apiFor = { news: newsApi, videos: videosApi, projects: projectsApi, team: teamApi }[tab];
+  const apiFor = { news: newsApi, videos: videosApi, projects: projectsApi, team: teamApi, zones: zonesApi }[tab];
 
   const load = async () => {
     setLoading(true);
@@ -54,6 +54,7 @@ export default function AdminDashboard() {
       videos: { title: "", youtube_url: "", description: "" },
       projects: { project_name: "", title: "", content: "" },
       team: { name: "", role: "", team_group: "", bio: "", order_index: 0 },
+      zones: { country: "", prepositional_phrase: "", city: "", address: "", description: "", map_url: "", order_index: 0 },
     };
     setEditing({ ...defaults[tab], id: null });
   };
@@ -96,6 +97,7 @@ export default function AdminDashboard() {
     { key: "videos", label: "Vidéos" },
     { key: "projects", label: "Avancées de projets" },
     { key: "team", label: "Équipe" },
+    { key: "zones", label: "Zones d'intervention" },
   ];
 
   return (
@@ -155,6 +157,17 @@ export default function AdminDashboard() {
                 <Textarea placeholder="Bio (optionnel)" value={editing.bio || ""} onChange={(e) => setEditing({ ...editing, bio: e.target.value })} rows={3} />
               </>
             )}
+            {tab === "zones" && (
+              <>
+                <Input placeholder="Pays (ex: Togo)" value={editing.country} onChange={(e) => setEditing({ ...editing, country: e.target.value })} required />
+                <Input placeholder="Formulation (ex: au Togo, en France)" value={editing.prepositional_phrase} onChange={(e) => setEditing({ ...editing, prepositional_phrase: e.target.value })} required />
+                <Input placeholder="Ville / zone (optionnel, ex: Strasbourg)" value={editing.city || ""} onChange={(e) => setEditing({ ...editing, city: e.target.value })} />
+                <Input placeholder="Adresse à afficher" value={editing.address} onChange={(e) => setEditing({ ...editing, address: e.target.value })} required />
+                <Textarea placeholder="Description courte (optionnel)" value={editing.description || ""} onChange={(e) => setEditing({ ...editing, description: e.target.value })} rows={2} />
+                <Input placeholder="URL carte Google Maps (embed)" value={editing.map_url} onChange={(e) => setEditing({ ...editing, map_url: e.target.value })} required />
+                <Input type="number" placeholder="Ordre d'affichage (0, 1, 2...)" value={editing.order_index ?? 0} onChange={(e) => setEditing({ ...editing, order_index: Number(e.target.value) })} />
+              </>
+            )}
             {(tab === "news" || tab === "projects" || tab === "team") && (
               <div>
                 <label className="text-sm font-medium block mb-1">Image</label>
@@ -181,9 +194,9 @@ export default function AdminDashboard() {
                     <img src={imgUrl(item.image || item.photo)} alt="" className="w-12 h-12 object-cover rounded" />
                   )}
                   <div className="min-w-0">
-                    <p className="font-medium truncate">{item.title || item.name}</p>
+                    <p className="font-medium truncate">{item.title || item.name || item.country}</p>
                     <p className="text-sm text-muted-foreground truncate">
-                      {item.project_name || item.role || item.youtube_url || ""}
+                      {item.project_name || item.role || item.youtube_url || item.address || ""}
                     </p>
                   </div>
                 </div>

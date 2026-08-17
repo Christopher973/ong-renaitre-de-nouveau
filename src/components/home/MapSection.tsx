@@ -1,22 +1,24 @@
+import { useEffect, useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { MapPin, Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { presenceZones, presencePhrase } from '@/config/presence';
+import { zonesApi, Zone } from '@/lib/api';
 
 const MapSection = () => {
   const [sectionRef, isVisible] = useScrollAnimation<HTMLElement>();
+  const [zones, setZones] = useState<Zone[]>([]);
 
-  const locations = presenceZones.map((zone) => ({
-    ...zone,
-    city: zone.country === 'France' ? 'Strasbourg' : 'Multi-départements',
-    description:
-      zone.country === 'France'
-        ? 'Siège de l\'association et coordination des actions en Europe'
-        : `Actions terrain dans 6 départements du ${zone.country}`,
-  }));
+  useEffect(() => {
+    zonesApi
+      .list()
+      .then(setZones)
+      .catch(() => setZones([]));
+  }, []);
 
-  const gridColsClass =
-    locations.length >= 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2';
+  if (zones.length === 0) return null;
+
+  const gridColsClass = zones.length >= 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2';
+  const presencePhrase = zones.map((z) => z.prepositional_phrase).join(' et ');
 
   return (
     <section
@@ -35,19 +37,19 @@ const MapSection = () => {
           </span>
           <h2 className="mb-6">
             Présents{' '}
-            <span className="text-cobalt">{presencePhrase()}</span>
+            <span className="text-cobalt">{presencePhrase}</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Renaître de Nouveau s'engage à transformer des vies à travers le monde en menant 
-            des actions concrètes sur deux continents.
+            Renaître de Nouveau s'engage à transformer des vies à travers le monde en menant
+            des actions concrètes sur plusieurs continents.
           </p>
         </div>
 
         {/* Locations Grid */}
         <div className={cn("grid gap-8", gridColsClass)}>
-          {locations.map((location, index) => (
+          {zones.map((zone, index) => (
             <div
-              key={location.country}
+              key={zone.id}
               className={cn(
                 "bg-white rounded-2xl overflow-hidden shadow-soft transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
@@ -57,11 +59,11 @@ const MapSection = () => {
               {/* Map */}
               <div className="h-64 bg-muted">
                 <iframe
-                  src={location.mapUrl}
+                  src={zone.map_url}
                   className="w-full h-full border-0"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title={`Carte ${location.country}`}
+                  title={`Carte ${zone.country}`}
                 />
               </div>
 
@@ -73,16 +75,22 @@ const MapSection = () => {
                   </div>
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-xl font-bold">{location.country}</h3>
-                      <span className="text-muted-foreground">•</span>
-                      <span className="text-cobalt font-medium">{location.city}</span>
+                      <h3 className="text-xl font-bold">{zone.country}</h3>
+                      {zone.city && (
+                        <>
+                          <span className="text-muted-foreground">•</span>
+                          <span className="text-cobalt font-medium">{zone.city}</span>
+                        </>
+                      )}
                     </div>
                     <p className="text-muted-foreground text-sm mb-2">
-                      {location.address}
+                      {zone.address}
                     </p>
-                    <p className="text-muted-foreground">
-                      {location.description}
-                    </p>
+                    {zone.description && (
+                      <p className="text-muted-foreground">
+                        {zone.description}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

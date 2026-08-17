@@ -21,8 +21,7 @@ import formationImg from "@/assets/formation-women.jpg";
 import healthImg from "@/assets/health-care.jpg";
 import foodImg from "@/assets/food-security.jpg";
 import volunteersImg from "@/assets/volunteers.jpg";
-import { projectsApi, imgUrl } from "@/lib/api";
-import { presenceZones } from "@/config/presence";
+import { projectsApi, imgUrl, zonesApi, Zone } from "@/lib/api";
 
 const Actions = () => {
   const location = useLocation();
@@ -33,6 +32,11 @@ const Actions = () => {
     projectsApi.list().then(setProjectUpdates).catch(() => setProjectUpdates([]));
   }, []);
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
+  const [zones, setZones] = useState<Zone[]>([]);
+
+  useEffect(() => {
+    zonesApi.list().then(setZones).catch(() => setZones([]));
+  }, []);
 
   useEffect(() => {
     if (location.hash) {
@@ -141,9 +145,9 @@ const Actions = () => {
       image: volunteersImg,
       points: [
         "Volontariat de solidarité internationale",
-        `Missions terrain ${presenceZones
+        `Missions terrain ${zones
           .filter((z) => z.country !== 'France')
-          .map((z) => z.prepositionalPhrase)
+          .map((z) => z.prepositional_phrase)
           .join(' et ')}`,
         "Mécénat d'entreprise",
         "Développement de compétences pratiques",
