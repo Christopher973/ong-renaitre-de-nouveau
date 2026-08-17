@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -12,6 +12,7 @@ import {
   Heart,
   ArrowRight,
   CheckCircle,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -20,10 +21,17 @@ import formationImg from "@/assets/formation-women.jpg";
 import healthImg from "@/assets/health-care.jpg";
 import foodImg from "@/assets/food-security.jpg";
 import volunteersImg from "@/assets/volunteers.jpg";
+import { projectsApi, imgUrl } from "@/lib/api";
 
 const Actions = () => {
   const location = useLocation();
   const [heroRef, heroVisible] = useScrollAnimation<HTMLElement>();
+  const [projectUpdates, setProjectUpdates] = useState<any[]>([]);
+
+  useEffect(() => {
+    projectsApi.list().then(setProjectUpdates).catch(() => setProjectUpdates([]));
+  }, []);
+  const [selectedProject, setSelectedProject] = useState<any | null>(null);
 
   useEffect(() => {
     if (location.hash) {
@@ -258,6 +266,45 @@ const Actions = () => {
         </section>
       ))}
 
+      {/* Avancées de projets */}
+      {projectUpdates.length > 0 && (
+        <section className="section-padding bg-background">
+          <div className="container-custom">
+            <div className="text-center mb-12">
+              <span className="text-cobalt font-medium text-sm uppercase tracking-wider">
+                Suivi terrain
+              </span>
+              <h2 className="mt-2">Avancées de nos projets</h2>
+            </div>
+            <div className="flex flex-wrap justify-center gap-8">
+              {projectUpdates.map((p) => (
+                <button
+                  type="button"
+                  key={p.id}
+                  onClick={() => setSelectedProject(p)}
+                  className="text-left bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-lg transition-all duration-300 w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.4rem)] max-w-sm"
+                >
+                  {p.image && (
+                    <img
+                      src={imgUrl(p.image)}
+                      alt={p.title}
+                      className="w-full h-48 object-cover"
+                    />
+                  )}
+                  <div className="p-6">
+                    <span className="text-cobalt font-medium text-xs uppercase tracking-wider">
+                      {p.project_name}
+                    </span>
+                    <h3 className="font-bold text-lg mt-2 mb-3">{p.title}</h3>
+                    <p className="text-muted-foreground text-sm line-clamp-4">{p.content}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CTA */}
       <section className="py-20 bg-cobalt">
         <div className="container-custom text-center">
@@ -287,6 +334,46 @@ const Actions = () => {
           </div>
         </div>
       </section>
+
+      {/* Modale avancée de projet */}
+      {selectedProject && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4"
+          onClick={() => setSelectedProject(null)}
+        >
+          <div
+            className="bg-white rounded-2xl overflow-hidden max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 bg-white/90 hover:bg-white p-2 rounded-full z-10"
+                aria-label="Fermer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              {selectedProject.image && (
+                <img
+                  src={imgUrl(selectedProject.image)}
+                  alt={selectedProject.title}
+                  className="w-full max-h-[50vh] object-contain bg-muted"
+                />
+              )}
+            </div>
+            <div className="p-8">
+              <span className="text-cobalt font-medium text-xs uppercase tracking-wider">
+                {selectedProject.project_name}
+              </span>
+              <h3 className="font-bold text-2xl mt-2 mb-4">{selectedProject.title}</h3>
+              <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                {selectedProject.content}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };
