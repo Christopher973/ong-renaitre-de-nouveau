@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Heart, Users, ArrowDown, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-humanitarian.jpg";
+import { presencePhrase } from "@/config/presence";
 
 const HeroSection = () => {
   const scrollToAbout = () => {
@@ -33,7 +34,7 @@ const HeroSection = () => {
         <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-8 animate-fade-in-down">
           <span className="w-2 h-2 bg-cobalt-light rounded-full animate-pulse" />
           <span className="text-sm font-medium">
-            Association humanitaire au Bénin et en France
+            Association humanitaire {presencePhrase()}
           </span>
         </div>
 

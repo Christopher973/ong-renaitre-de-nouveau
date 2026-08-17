@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Target, Eye, Heart, Users, Shield, BookOpen, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { presenceZones } from '@/config/presence';
 
 const About = () => {
   const location = useLocation();
@@ -52,6 +53,21 @@ const About = () => {
     'Faisons droit à l\'orphelin',
     'Défendons la veuve',
   ];
+
+  // Zones d'intervention : les données géographiques (pays, adresse, carte) viennent
+  // de src/config/presence.ts, source unique partagée avec la page d'accueil.
+  // Pour ajouter un nouveau pays, modifier uniquement ce fichier de config.
+  const zones = presenceZones.map((zone) => ({
+    ...zone,
+    title:
+      zone.country === 'France'
+        ? 'France - Strasbourg'
+        : `${zone.country} - Multi-départements`,
+    description:
+      zone.country === 'France'
+        ? 'Siège de l\'association et coordination des actions humanitaires en Europe.'
+        : `Actions terrain dans 6 départements pour soutenir les communautés locales.`,
+  }));
 
   return (
     <Layout>
@@ -222,49 +238,29 @@ const About = () => {
             <span className="badge-primary mb-4">Présence internationale</span>
             <h2 className="mb-6">Zones d'intervention</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Renaître de Nouveau s'engage à transformer des vies en menant des actions 
-              concrètes au Bénin et en France.
+              Renaître de Nouveau s'engage à transformer des vies en menant des actions
+              concrètes {zones.map((z) => z.prepositionalPhrase).join(' et ')}.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* France */}
-            <div className="bg-white rounded-2xl overflow-hidden shadow-soft">
-              <div className="h-64 bg-muted">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2638.9!2d7.759!3d48.578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDM0JzQxLjAiTiA3wrA0NSczMy4wIkU!5e0!3m2!1sfr!2sfr!4v1234567890"
-                  className="w-full h-full border-0"
-                  loading="lazy"
-                  title="Carte France"
-                />
+          <div className={cn('grid gap-8', zones.length >= 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2')}>
+            {zones.map((zone) => (
+              <div key={zone.country} className="bg-white rounded-2xl overflow-hidden shadow-soft">
+                <div className="h-64 bg-muted">
+                  <iframe
+                    src={zone.mapUrl}
+                    className="w-full h-full border-0"
+                    loading="lazy"
+                    title={`Carte ${zone.country}`}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{zone.title}</h3>
+                  <p className="text-muted-foreground mb-2">{zone.address}</p>
+                  <p className="text-muted-foreground text-sm">{zone.description}</p>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">France - Strasbourg</h3>
-                <p className="text-muted-foreground mb-2">74 Rue du Lazaret, 67100 Strasbourg</p>
-                <p className="text-muted-foreground text-sm">
-                  Siège de l'association et coordination des actions humanitaires en Europe.
-                </p>
-              </div>
-            </div>
-
-            {/* Bénin */}
-            <div className="bg-white rounded-2xl overflow-hidden shadow-soft">
-              <div className="h-64 bg-muted">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4069925!2d1.99!3d9.31!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023cd8d7e8c3e5d%3A0x3e6c3be96ebaf0e2!2sBenin!5e0!3m2!1sfr!2sfr!4v1234567890"
-                  className="w-full h-full border-0"
-                  loading="lazy"
-                  title="Carte Bénin"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">Bénin - Multi-départements</h3>
-                <p className="text-muted-foreground mb-2">Alibori, Borgou, Atacora, Mono, Couffo, Plateau</p>
-                <p className="text-muted-foreground text-sm">
-                  Actions terrain dans 6 départements pour soutenir les communautés locales.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

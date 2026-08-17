@@ -1,11 +1,35 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { videosApi } from '@/lib/api';
+import { presencePhrase } from '@/config/presence';
+
+const extractYoutubeId = (url: string): string | null => {
+  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{6,})/);
+  return match ? match[1] : null;
+};
+
+const DEFAULT_VIDEO_ID = 'Ld3j1YLSOVc';
 
 const VideoSection = () => {
   const [sectionRef, isVisible] = useScrollAnimation<HTMLElement>();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [videoId, setVideoId] = useState(DEFAULT_VIDEO_ID);
+  const [videoDescription, setVideoDescription] = useState<string | null>(null);
+
+  useEffect(() => {
+    videosApi
+      .list()
+      .then((videos: any[]) => {
+        if (videos.length > 0) {
+          const id = extractYoutubeId(videos[0].youtube_url);
+          if (id) setVideoId(id);
+          if (videos[0].description) setVideoDescription(videos[0].description);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <section
@@ -27,8 +51,8 @@ const VideoSection = () => {
               <span className="text-cobalt-light">impact durable</span>
             </h2>
             <p className="text-white/70 text-lg mb-8 leading-relaxed">
-              Découvrez comment Renaître de Nouveau transforme des vies au Bénin et en France. 
-              Nos équipes sur le terrain travaillent chaque jour pour offrir un avenir meilleur 
+              Découvrez comment Renaître de Nouveau transforme des vies {presencePhrase()}.
+              Nos équipes sur le terrain travaillent chaque jour pour offrir un avenir meilleur
               aux orphelins, aux veuves et aux jeunes en difficulté.
             </p>
 
@@ -60,7 +84,7 @@ const VideoSection = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video bg-storm-light">
               {isPlaying ? (
                 <iframe
-                  src="https://www.youtube.com/embed/Ld3j1YLSOVc?autoplay=1"
+                  src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
                   title="ONG Renaître de Nouveau"
                   className="absolute inset-0 w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -69,7 +93,7 @@ const VideoSection = () => {
               ) : (
                 <>
                   <img
-                    src="https://img.youtube.com/vi/Ld3j1YLSOVc/maxresdefault.jpg"
+                    src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                     alt="Vidéo Renaître de Nouveau"
                     className="w-full h-full object-cover"
                   />
@@ -84,6 +108,12 @@ const VideoSection = () => {
                 </>
               )}
             </div>
+
+            {videoDescription && (
+              <p className="mt-4 text-white/70 text-sm leading-relaxed">
+                {videoDescription}
+              </p>
+            )}
 
             {/* Decorative Elements */}
             <div className="absolute -top-4 -right-4 w-24 h-24 bg-cobalt/20 rounded-full blur-xl" />

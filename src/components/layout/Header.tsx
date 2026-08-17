@@ -56,6 +56,7 @@ const Header = () => {
       ],
     },
     { name: "Équipe", path: "/team" },
+    { name: "Actualités", path: "/news" },
     { name: "Contact", path: "/contact" },
   ];
 

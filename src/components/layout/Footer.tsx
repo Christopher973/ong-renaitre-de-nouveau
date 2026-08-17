@@ -165,9 +165,9 @@ const Footer = () => {
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-cobalt-light flex-shrink-0 mt-0.5" />
                   <span className="text-white/70">
-                    74 Rue du Lazaret
+                    24 rue de la Niederbourg
                     <br />
-                    67100 Strasbourg, France
+                    67400 Illkirch-Graffenstaden, France
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
